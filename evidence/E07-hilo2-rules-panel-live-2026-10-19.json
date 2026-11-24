@@ -1,0 +1,71 @@
+{
+  "exhibit": "E07",
+  "what": "HouseBets hilo game page: the rules panel text (English) as shipped in the bundle the live page URL served on 19 Oct 2026 (last-modified Fri, 16 Oct 2026 09:18:09 GMT, the same last-modified as the other ten House Games bundles fetched that day): every rules* key, first occurrence. E06 quotes two keys of the same panel (rulesHiloReturn, rulesHiloStart) from the 10 Oct copy, the bundle in force while this package's rounds were captured (12-13 Oct).",
+  "source": {
+    "file": "bundles/live-2026-10-19/platform-housegames-hilo2-game.js (HouseBets workshop)",
+    "url": "/static/platform-housegames-hilo2-game.js",
+    "sha256": "91f935a13e58b53c82c4091acfba6024ae46b787c958b0e511b2ba52d3765a5d",
+    "bytes": 873835,
+    "lastModified": "Fri, 16 Oct 2026 09:18:09 GMT",
+    "etag": "W/\"d556b-1a144012868\"",
+    "fetchedAt": "Mon, 19 Oct 2026 13:01:21 GMT",
+    "contentType": "application/javascript; charset=UTF-8",
+    "loadedByLivePage": "not re-checked on 19 Oct; the same /static URL the live page loaded on 10 Oct (bundles/LIVE-BUNDLES.md)"
+  },
+  "previous": {
+    "exhibit": "E06",
+    "file": "evidence/E06-hilo2-bundle-start-card-2026-10-10.json",
+    "bundleSha256": "2bb32f6ac4149e92d18489375e2322f61b2fdf7cba8eb38b000d6272819009e7",
+    "bytes": 848005
+  },
+  "rulesPanelEnglish": {
+    "rules": "Rules",
+    "rulesHiloHowH": "How to play",
+    "rulesHiloIntro": "Guess whether the next card is higher or lower than the one showing. Every right guess raises the multiplier; a wrong guess ends the round and the bet is lost.",
+    "rulesHiloStart": "A round starts on the card on top: the last card of the previous round, or a new one drawn by Skip before the bet. Every start card is worth the same.",
+    "rulesHiloGuess": "On a middle card each side counts the same rank too (Higher / same, Lower / same); on an Ace the choices are Higher and Same, on a King Same and Lower. Suits don't matter.",
+    "rulesHiloSkip": "Skip turns the next card without a guess: the multiplier stays as it is. A round shows at most 52 cards, and a skip always leaves a card to guess on.",
+    "rulesHiloCash": "Cash out after any right guess to take the bet times the multiplier shown.",
+    "rulesHiloAuto": "Auto plays its rounds with the guess pattern you choose — Safe (the likelier side), Risky (the long shot), Higher or Lower — and cashes out after the number of right guesses you set.",
+    "rulesHiloTableH": "The guesses on each card",
+    "rulesHiloCard": "Card",
+    "rulesHiloReturnH": "Return",
+    "rulesHiloReturn": "Theoretical RTP before rounding and any payout cap: 99% (1% house edge, charged once per round on the first right guess). A capped payout can reduce the return. After right guesses with n₁, n₂, … winning ranks out of 13, the multiplier is 0.99 × 13/n₁ × 13/n₂ × … Payouts are rounded down to the wallet's smallest unit.",
+    "rulesHiloDeck": "A right guess on the round's 52nd card cashes the round out.",
+    "rulesHiloReload": "A round in play stays open on the server: reload the game and it carries on where it stood.",
+    "rulesHiloIdle": "A round left without a decision for 24 hours is finished by the server: cashed out when it can be, otherwise the card showing is guessed on its likelier side and a right guess is cashed out.",
+    "rulesHiloMaxWinCap": "A round pays at most its stake plus {cap}: a right guess that reaches the cap cashes the round out at the cap.",
+    "rulesHiloFree": "A bet of 0 is a free round: the same cards, nothing paid; it may cash out once a card has been turned.",
+    "rulesHiloFair": "Every card comes from the seed pair: the server seed (shown hashed before the round), your client seed and the round's nonce. Rotate the pair to reveal the server seed and check every card of your rounds in the fairness window.",
+    "rulesBetRange": "Bet amount: {min} to {max}.",
+    "rulesLimitsH": "Limits",
+    "rulesTabFair": "Fairness",
+    "rulesOpenFair": "Open Provably Fair",
+    "rulesMaxBet": "Max bet",
+    "rulesMinBet": "Min bet"
+  },
+  "changedSinceE06": {
+    "rulesHiloReturn": {
+      "E06 (10 Oct)": "Every way of playing returns 99% (1% house edge, charged once per round on the first right guess). After right guesses with n₁, n₂, … winning ranks out of 13, the multiplier is 0.99 × 13/n₁ × 13/n₂ × … Payouts are rounded down to the wallet's smallest unit.",
+      "E07 (19 Oct)": "Theoretical RTP before rounding and any payout cap: 99% (1% house edge, charged once per round on the first right guess). A capped payout can reduce the return. After right guesses with n₁, n₂, … winning ranks out of 13, the multiplier is 0.99 × 13/n₁ × 13/n₂ × … Payouts are rounded down to the wallet's smallest unit."
+    },
+    "rulesMaxBet": {
+      "E06 (10 Oct)": null,
+      "E07 (19 Oct)": "Max bet"
+    },
+    "rulesMinBet": {
+      "E06 (10 Oct)": null,
+      "E07 (19 Oct)": "Min bet"
+    }
+  },
+  "panelKeysCalled": {
+    "note": "rules keys the page code passes to its translator, (\"rulesX\" ...), in the 10 Oct copy vs the live copy",
+    "added": [
+      "rulesMaxBet",
+      "rulesMinBet"
+    ],
+    "removed": [
+      "rulesBetRange"
+    ]
+  }
+}

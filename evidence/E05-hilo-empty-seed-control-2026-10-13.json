@@ -1,0 +1,49 @@
+{
+  "exhibit": "E05",
+  "what": "Phase D empty-seed control: the server's answer to POST /change_seed {gameType: hilo2, clientSeed: \"\"}",
+  "source": {
+    "file": "data/supplementary/housebets-hilo-phaseD-playerseeds-200rounds.json",
+    "sha256": "a7ec3386bf3e7d2b988aadc4f120fd1c422a5218b535884922e2d9072e1af70f",
+    "field": "meta.emptySeedControl"
+  },
+  "record": {
+    "at": "2026-10-13T18:29:12.116Z",
+    "request": {
+      "method": "POST",
+      "path": "/change_seed",
+      "body": {
+        "gameType": "hilo2",
+        "clientSeed": ""
+      }
+    },
+    "status": 400,
+    "accepted": false,
+    "response": {
+      "error": "an error occurred"
+    },
+    "pairBefore": {
+      "clientSeed": "pfhiloc1ffcc32234bd1489f2284d82d7d710b",
+      "hashedServerSeed": "2176b98217aed6e1388ac329a819975325bcea3a5b6ca2f8b21f0e78f580cfb3",
+      "hashedNextServerSeed": "77e3e6d25e59e96be2e61aa8b57663012531b213f01cc352c0acf96c19353082",
+      "lastSeed": "",
+      "nonce": 0,
+      "totalBets": 0,
+      "cursor": 0,
+      "id": 104748,
+      "_readAt": "2026-10-13T18:29:12.116Z"
+    },
+    "pairAfter": {
+      "clientSeed": "pfhiloc1ffcc32234bd1489f2284d82d7d710b",
+      "hashedServerSeed": "2176b98217aed6e1388ac329a819975325bcea3a5b6ca2f8b21f0e78f580cfb3",
+      "hashedNextServerSeed": "77e3e6d25e59e96be2e61aa8b57663012531b213f01cc352c0acf96c19353082",
+      "lastSeed": "",
+      "nonce": 0,
+      "totalBets": 0,
+      "cursor": 0,
+      "id": 104748,
+      "_readAt": "2026-10-13T18:29:13.123Z"
+    },
+    "clientSeedAfter": "pfhiloc1ffcc32234bd1489f2284d82d7d710b",
+    "revealCommitOk": null
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "exhibit": "E06",
+  "what": "HouseBets hilo2 game page, as shipped in the bundle the live page loads: how the start card is chosen and sent (the server is not shown choosing it); the rules panel return and start-card texts (English); the fairness request; the hi / lo button gate",
+  "source": {
+    "file": "bundles/platform-housegames-hilo2-game.js (HouseBets workshop)",
+    "sha256": "2bb32f6ac4149e92d18489375e2322f61b2fdf7cba8eb38b000d6272819009e7",
+    "bytes": 848005,
+    "checkedOnLivePage": "2026-10-10 (bundles/LIVE-BUNDLES.md: script tag on the hilo page)"
+  },
+  "excerpts": {
+    "draw (li): a card id drawn as crypto Uint32 mod 52 (2^32 mod 52 = 48, so within about 1e-8 of uniform, not exactly), Math.random if crypto throws": "function li(){try{var q=new Uint32Array(1);return window.crypto.getRandomValues(q),q[0]%52}catch{return Math.floor(Math.random()*52)}}",
+    "set (ui): the start card is page state, persisted in local storage": "function ui(q,e){return Ft(q)&&(S.startCard=q,Dt(Le,\"startCard\",String(q),\"hh-start\"),vq(\"start:card\",{card:q,from:e||\"carry\"}),vq(\"state\",S)),S}",
+    "free skip (ip): a new drawn card, different from the current one, before a bet": "function ip(){if(S.busy||S.round&&S.round.active||Hn())return!1;for(var q=li();q===S.startCard;)q=li();return ui(q,\"skip\"),!0}",
+    "first load: the stored start card, else a drawn one": "(function(){var q=parseInt(It(Le,\"startCard\",\"hh-start\",null),10);S.startCard=Ft(q)?q:li()})()",
+    "carry-over: after a round, its last card becomes the next start card": "var r=q.cards[q.cards.length-1];Ft(r)&&r!==S.startCard&&ui(r,\"carry\")",
+    "bet body: the page sends the start card": "h={amount:e,startCard:S.startCard,currency:S.currency}",
+    "rules panel, return (rulesHiloReturn, English)": "rulesHiloReturn:\"Every way of playing returns 99% (1% house edge, charged once per round on the first right guess). After right guesses with n₁, n₂, … winning ranks out of 13, the multiplier is 0.99 × 13/n₁ × 13/n₂ × … Payouts are rounded down to the wallet's smallest unit.\"",
+    "rules panel, start card (rulesHiloStart, English)": "rulesHiloStart:\"A round starts on the card on top: the last card of the previous round, or a new one drawn by Skip before the bet. Every start card is worth the same.\"",
+    "fairness request (th): the page fetches /<game>/fairness and keeps the answer as its settings (setFairnessSpec)": "function th(q,e){At(\"/\"+ae+\"/fairness\",{deadlineMs:qh}).then(function(t){if(!Pt(t))throw _r(0,null,\"fairness answer unreadable\");yq.epoch===q&&typeof G.setFairnessSpec==\"function\"&&G.setFairnessSpec(t)})",
+    "button gate (iu): the page offers hi / lo only when the served button is allowed": "function iu(q,e){if(!q||!q.active||!q.options)return!1;var t=q.options[e];return e===\"hi\"||e===\"lo\"?!!(t&&t.allowed):!!t}"
+  }
+}

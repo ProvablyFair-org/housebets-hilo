@@ -1,0 +1,186 @@
+{
+  "suite": "housebets-hilo",
+  "profileSha256": "59fd68d12a105a6606a84b4173a87bfb03252c2a1d6811b3e54bfc5cc1b16234",
+  "verdict": "PROVABLY FAIR — Conditional Pass",
+  "summary": {
+    "passes": 22,
+    "fails": 0,
+    "overstated": 0,
+    "operatorFlags": 1,
+    "captureFlags": 0,
+    "packageChecks": 4,
+    "excluded": [
+      "HILO-27"
+    ]
+  },
+  "steps": [
+    {
+      "id": "HILO-01",
+      "status": "PASS",
+      "origin": null,
+      "detail": "sha256(utf8(revealed)) == committed: 130/130 Phase A seeds, 163/163 across A, C, C $10, D, E and the 12 Oct file; pre-capture reveals 6/6; 0 rounds on an unrevealed seed"
+    },
+    {
+      "id": "HILO-02",
+      "status": "PASS",
+      "origin": null,
+      "detail": "A 129/129 links, anchor true, end → pair active after the capture true; C 3/3 links, anchor true, end → pair active after the capture true; C $10 3/3 links, anchor true, end → pair active after the capture true; D 3/3 links, anchor true, end → pair active after the capture true; E 11/11 links, anchor true, end → pair active after the capture true"
+    },
+    {
+      "id": "HILO-03",
+      "status": "PASS",
+      "origin": null,
+      "detail": "130/130 Phase A epochs: every round's bet and settled answers carry the epoch's server-seed hash and client seed; all datasets 7777/7777 rounds; every server answer of a round (bet, each action, game_detail; replays set aside) carries the settled hash, client seed, version, nonce and round id the recompute uses: 7777/7777 rounds (A, C, C $10, D, E, 12 Oct); the capture's own copies (round id, client seed and hash read before the round, outcome label) == the server's answer: 7777/7777"
+    },
+    {
+      "id": "HILO-04",
+      "status": "PASS",
+      "origin": null,
+      "detail": "130/130 Phase A epochs: round nonces exactly 1..50, once each, no gap, repeat or reorder, N == the server's nonce read at rotation; every round's nonce == the server nonce read before it + 1: 7777/7777; every server answer of a round carries the settled nonce (with HILO-03): 7777/7777"
+    },
+    {
+      "id": "HILO-05",
+      "status": "PASS",
+      "origin": null,
+      "detail": "Phase A 6500 rounds / 130 seeds / 130 epochs (by the server's hash), every epoch 50: true; supplementary C 200, C $10 200, D 200, E 600, each in whole epochs of 50: true — against src/loader.ts constants, never meta"
+    },
+    {
+      "id": "HILO-06",
+      "status": "PASS",
+      "origin": null,
+      "detail": "a wrong client seed changes the first turned card of 6363/6500 Phase A rounds (137 chance matches, expected 125.00 at 1/52, bound 185.90); Phase D: player-set seeds [\"provablyfair-1\",\"provablyfair-2\",\"player-seed-abc\",\"1234567890\"] (predictable by design, disclosed DL-2), cards 200/200 and payouts 200/200 recompute, 195/200 first cards change vs the previous client seed; A, C, C $10 and E client seeds LABELLED by the capture as 'node:crypto randomBytes(16) hex' on 150/150 seeds (a label match; a redacted reference copy of the capture code is in capture/, the as-run game script is held privately, DL-2); empty-seed control: server refused, HTTP 400 (E05)"
+    },
+    {
+      "id": "HILO-07",
+      "status": "PASS",
+      "origin": null,
+      "detail": "turned card k == stream card k − 1 (E01: HMAC-SHA256 stream, big-endian u32, skip ≥ 4294967248, card = u32 mod 52) on Phase A 6500/6500 rounds; start card == the bet's startCard == cards[0] 6500/6500; C 200/200, C $10 200/200, D 200/200, E 600/600, 12 Oct 77/77; coverage 6500 == expectedRounds; 0 skipped rounds"
+    },
+    {
+      "id": "HILO-08",
+      "status": "PASS",
+      "origin": null,
+      "detail": "2^32 mod 52 = 48, so the skip threshold 2^32 − 48 = 4294967248 (E01); below it every card id 0..51 has exactly 82,595,524 preimages (sum 4294967248 == 4294967248): exactly uniform, bias 0; map edges checked: true; rejection census of the run: 0 u32 skipped while recomputing the 7777 captured rounds, 0 in the 2,000,000-card simulation (expected rate 48/2^32 = 1.12e-8)"
+    },
+    {
+      "id": "HILO-09",
+      "status": "PASS",
+      "origin": null,
+      "detail": "the 4 published card streams (E01 \"examples\", 8 cards each) 4/4; the 7 published payout examples 7/7; captured Phase A round idx 0 (start 28, turned 45) recomputes: true; also tests/rng.test.ts"
+    },
+    {
+      "id": "HILO-10",
+      "status": "PASS",
+      "origin": null,
+      "detail": "every guess over the DERIVED cards: served n == the button table (E01) 8661/8661, served win == the published rule (a tie wins an \"or same\" guess) 8661/8661; outcome == the replay (bust / cashout / capped / deck) 7777/7777; every bust ends on a wrong guess paying 0 3794/3794; skips leave the multiplier unchanged 96/96; events == the cards turned 7777/7777 and == the actions sent 7777/7777; most cards in a round 52 (≤ 52); requests that repeated a generation (the server's idempotency key) set aside as replays: 686 in the 12 Oct file, each answered with exactly the stored answer 686/686, 1 never sent; A–E 0; 12 Oct round 360c5f20…: 50 skips, then with 51 cards showing the server no longer offered a skip (options.skip false); the guess turned card 52, outcome bust; its 51 turned cards (7 HMAC blocks) recompute: true; a cash-out before any right guess (E01 rules[4]) refused with HTTP 400, round still open: 2/2, and those rounds then settled by the replay 2/2"
+    },
+    {
+      "id": "HILO-11",
+      "status": "PASS",
+      "origin": null,
+      "detail": "payout == floor(stake × multiplier8) at 1e-8 (E01 \"multiplier\", rules[6]) on the replay over the derived cards: A 6500/6500, C 200/200, C $10 200/200, D 200/200, E 600/600, 12 Oct 77/77; capture copy == the server's own round record (roundId, stake, payout) 7776/7776; game_detail == the settled game (cards, events, outcome, payout, nonce) 818/818; settled stake == stake sent 7777/7777; every amount sent and served on the 1e-8 grid (an off-grid value fails, it is never rounded onto the grid) 7777/7777 rounds; rounds where one floor of stake × the exact 0.99·Π13/n would pay differently from the published two-step rule: 16 (observation: the spec cuts the multiplier, then floors the payout)"
+    },
+    {
+      "id": "HILO-12",
+      "status": "PASS",
+      "origin": null,
+      "detail": "Phase C 200 rounds at 2 (= 100 × the Phase A stake 0.02: true), one guess on the likelier side true: cards 200/200, payouts 200/200, multipliers 166/166, stake as sent, settled and recorded true, 166 elevated wins (≥ 100); $10 set 200 rounds at 10: cards 200/200, payouts 200/200, multipliers 149/149, stake true, 149 wins (≥ 100); same rule as base stake"
+    },
+    {
+      "id": "HILO-13",
+      "status": "PASS",
+      "origin": null,
+      "detail": "settled multiplier == 99/100 × Π 13/n_i cut to 8 decimals (E01 \"multiplier\") 3983/3983 winning rounds; every open step after a right guess: multiplier and value == the formula over the derived cards 4885/4885; the published first-guess values hiFirst / loFirst (E01 buttons) == the formula 26/26; the published payout examples 7/7; the two buttons shown before every guess (options.hi / options.lo: n == the table for the card showing, multiplier == 99/100 × Π 13/n over the right guesses so far and the button's n, value == floor(stake × it), allowed iff that value stays within the max win) on the bet answer 15554/15554 buttons and on later answers 9926/9926 (A, C, C $10, D, E, 12 Oct); the derivation reads n from the published table, never an operator odds field (the served n is only compared, HILO-10)"
+    },
+    {
+      "id": "HILO-14",
+      "status": "PASS",
+      "origin": null,
+      "detail": "multiplier rises with every right guess 4867/4867 steps; a skip leaves it unchanged 96/96; caps (E01 rules[5]): a right guess reaching the max win (1000310.0961298 above the stake, E02) settles \"capped\": witnessed false; a right guess on the 52nd card settles \"deck\": witnessed false — the cap branches were not reached (at a stake of at most 10 the max win needs a multiplier above ×100,000; no round of A–E turned more than 10 cards after the start card, and the one 52-card round, 12 Oct, ended on a wrong guess, HILO-10); declared unwitnessed (DL-4), as the rule allows: PASS with the branches declared"
+    },
+    {
+      "id": "HILO-15",
+      "status": "PASS",
+      "origin": null,
+      "detail": "Phase A start ranks 457/512/488/502/483/500/540/529/516/502/517/480/474 (each ≥ 50: true), both sides guessed on every rank: true (per rank × side 220–282); Phase E right guesses per round {\"0\":192,\"1\":147,\"2\":118,\"3\":74,\"4\":35,\"5\":16,\"6\":13,\"8\":1,\"9\":2,\"10\":2}, 261 rounds with ≥ 2, 19 with skips, cash-outs after 2, 3, 4, 5, 6, 9, 10 right guesses"
+    },
+    {
+      "id": "HILO-16",
+      "status": "PASS",
+      "origin": null,
+      "detail": "every hilo round of the package (A, C, C $10, D, E and the 12 Oct file) is in the platform's bet history with the same stake, payout and won/lost status: 7777/7777 (E03, 7777 rows); E04 checked by its numbers: 60 dataset rows sum to the TOTAL row (86966 rounds, staked and paid exact to 1e-8, each row's net == paid − staked), the ledger line adds up (86979 entries = 86966 captured + 0 open + 13 from 10 Oct, captured == TOTAL, unexplained 0), and balance after 914.19723945 − net -72.64994055 + open stakes 0 == 986.84718000 == the command's --before input 986.84718000: true; each of the package's 6 files' row (rounds, staked, paid) == the package's own count and sums from the file: 6/6; E04's hilo rows: 6, 7777 rounds == the 7777 rounds of this package's files: true; the per-round balance field is not used (other games were captured at the same time, MANIFEST.md DL-7)"
+    },
+    {
+      "id": "HILO-17",
+      "status": "PASS",
+      "origin": null,
+      "detail": "Phase E 600 guess chains, every action on a fresh generation (0 replays): every intermediate value after a right guess == the formula at that depth 960/960; every cash-out and payout == the replay 600/600; every step's cards are a prefix of the settled cards 600/600 (the sequence is fixed before the first guess); skips never change the multiplier 24/24; 261 rounds with ≥ 2 right guesses; all datasets: prefix 7777/7777"
+    },
+    {
+      "id": "HILO-18",
+      "status": "PASS",
+      "origin": null,
+      "detail": "enumeration over the 13 ranks under the published rule: the count of winning next ranks == n == the button table (E01) for 26/26 (rank, side) cells, so a guess on n ranks wins with chance n/13 (E01 \"cards\": 1 in 13 per rank); no operator win-chance field is read; negative control: round idx 0 with its first turned card moved one rank (45 → 6) is rejected by the stream recomputation: true"
+    },
+    {
+      "id": "HILO-19",
+      "status": "PASS",
+      "origin": null,
+      "detail": "22620 settings (every n-sequence up to depth 4; depth 1 = the 12 values of n, onto which the 26 start rank × side cells map): derived RTP 0.989999992941 (n = 12·12·12·12) … 0.990000000000 (n = 1) vs the flat claim read from the exhibits now, the highest figure stated: E01 return 99 %; E01 summary 99 %; E06 rulesHiloReturn 99 %; E07 rulesHiloReturn 99 % → 99.000000 %: largest gap 7.06e-9, from cutting the multiplier to 8 decimals; first-guess cells 0.989999995385 (7 hi) … 0.990000000000 (A hi); deeper than 4 the cut costs < 1e-8·Π n_i/13^k (below 0.99, never above); the committed table keeps all 22620 rows (complete: true); 0 house-side beyond the 0.1 pp band, 0 player-favourable → RTP-CLAIM PASS (rule RTP-CLAIM 1.2.0, enforced true: PASS); payout truncation to 1e-8 at the 0.01000311 minimum stake costs at most 7.36e-7 of RTP on a first guess (disclosed); committed table matches: true"
+    },
+    {
+      "id": "HILO-20",
+      "status": "PASS",
+      "origin": null,
+      "detail": "census re-run in full == the pinned outputs/simulation-results.json byte for byte: true; 2,000,000 fresh cards over the 52 ids: chi² 63.22 (df 51) p 0.1171, lag-1 r -6.86e-4 z -0.971 p 0.3317, runs about id 26 z -0.284 p 0.7763 (each ≥ α/3 = 0.0033: true); 26/26 first-guess classes (13 start ranks × 2 sides, 1,000,000 rounds each, every class on its own seeds: true; 26,000,000 rounds in all) within 5·SE + 1e-4 of the exact RTP; worst |Δ|/SE 2.47 (A lo); band: |RTP_sim − RTP_exact| ≤ 5·SE + 0.0001, SE = σ/√n per class, half-width 1.529e-3 (A hi) … 1.725e-2 (A lo); 4 of 26 classes have a half-width wider than the 1 % house edge; false-alarm rates: uniformity 0.0033, worst class 4.9e-7"
+    },
+    {
+      "id": "HILO-21",
+      "status": "PASS",
+      "origin": null,
+      "detail": "163 revealed seeds × 10,000 nonces: every revealed seed of every dataset (A 130, C 4, C $10 4, D 4, E 12, 12 Oct 9; 163 of the 163 revealed seeds carry captured rounds); early window = the nonces the capture played on the seed (1..50 on a 13 Oct pair, 1..n on a 12 Oct pair), reference = the rest of 1..10,000; each nonce replays a round the capture played on that seed by its FIRST guess (the rank it was made on and its side, judged by the stream card at that guess's place; 24 of the 7777 rounds skipped before it; a later guess depends on the cards before it and is not replayed); scored statistic (per-slot standardised return, src/sim-config.ts; switched from the payout-weighted return on 14 Oct, AFTER that result was known — both printed): each played slot's return minus its exact mean ÷ its exact sd, summed and ÷ √slots, over the 7777 early-window slots (one per captured round: 7777), every one scored (the largest first-guess multiplier is 12.87× on n = 1, 527 slots): z 0.180, one-sided p 0.5713 (≥ 0.008, the level set from the false-alarm calibration: true); reference window z -0.014; per dataset, printed, not scored: A z -0.315 (6500 slots), C z 1.854 (200 slots), C $10 z -0.960 (200 slots), D z 1.192 (200 slots), E z 0.357 (600 slots), 12 Oct z 0.339 (77 slots); per-n census counts sum to the window totals and returns: true; every seed's captured rounds are nonces 1..n with no gap: 163/163; early window == the served first-guess results, n by n: 163/163 seeds; the payout-weighted return of the Phase A epochs (scored until 14 Oct at 0.01, printed): early z -0.137, p 0.4455, reference z 0.342; 67 Phase A epochs below expectation, 63 at or above; Phase A early window == the captured served multipliers: true; detection power of the scored statistic: a 2.45 pp per-round RTP deficit at 80 % (the Phase A payout-weighted return's 5.74 pp); false-alarm rate of the scored rule 0.00836 ± 0.000204 at 0.008 over the 7777 played slots (== this run's 7777: true; on the 6,500 Phase A slots at 0.01 it was 0.01013 ± 0.000224, above the cap: the reason for the 0.008 level), of the Phase A payout-weighted rule 0.00915 ± 0.000213 at 0.01 (src/false-alarm-pass2.ts, npm run false-alarm:pass2; cap 0.01)"
+    },
+    {
+      "id": "HILO-22",
+      "status": "INFO",
+      "origin": null,
+      "detail": "7952 captured turned cards (Phase A + E): ranks chi² 12.25 (df 12) p 0.4261; card ids chi² 59.40 (df 51) p 0.1962 — informational (a sample of this size has little power and never bears the verdict)"
+    },
+    {
+      "id": "HILO-23",
+      "status": "PASS",
+      "origin": null,
+      "detail": "MANIFEST.md S5-MATRIX block: 8 rows; ids and names == the framework's eight, in order (S5-1 Replay protection, S5-2 Input validation, S5-3 Seed integrity under adversarial input, S5-4 Cross-player isolation, S5-5 Payout field integrity, S5-6 Nonce sequence enforcement, S5-7 Parameter boundary enforcement, S5-8 Game-specific state): true; each result Pass / Flag / Hard Fail / Not tested: true (3 Pass on every control the row names, 4 Pass on part of the controls it names, 1 Not tested); each tied to a check, capture or limitation: true; the vendored profile states the ids only (the shared PLINKO-23 text names the rows)"
+    },
+    {
+      "id": "HILO-24",
+      "status": "PASS",
+      "origin": null,
+      "detail": "site-verifier/derive.js (generated from src/rng.ts by scripts/build-site-verifier.mjs): sha256 3324e3a3f705e3d96be527176483363bdc6497fcb598822b6d5faa0af7667903; == SITE_VERIFIER_PIN in src/artifact-pins.ts: true; == its RELEASE-MANIFEST.json pin: true; quoted in MANIFEST.md and README.md: true; the module loaded from that file exports what src/rng.ts exports (CARDS, REJECT_AT, cardFromU, hmacBlock, sha256Hex, streamCards): true; run side by side with src/rng.ts on every captured round of the 6 shipped datasets (A, C, C $10, D, E and the 12 Oct file): 7777 rounds, 77935 calls (CARDS 1, REJECT_AT 1, sha256Hex 163, hmacBlock 7777, cardFromU 62216, streamCards 7777; 6/6 exports exercised), 0 differing results"
+    },
+    {
+      "id": "HILO-25",
+      "status": "PASS",
+      "origin": null,
+      "detail": "README.md \"Verify a bet\" carries the save-the-hash-first step, where the seed is revealed, the fields, the commitment encoding, the HMAC key encoding (the seed's text, not hex-decoded), the card stream (block index, skip threshold, card = u32 mod 52), the start card, the buttons, the multiplier and a script that recomputes a round: 13/13 markers"
+    },
+    {
+      "id": "HILO-26",
+      "status": "PASS",
+      "origin": null,
+      "detail": "6 datasets + 7 evidence exhibits match their sha256 pinned in src/loader.ts; the constants src/spec.ts copies from the exhibits equal the pinned exhibits, read now: button table true, published streams true, published payouts true, rules[7] (abandoned round) true, rules[3] (52 cards) true, start-card sentence true, E02 minimum and max win true, a return figure in each place (E01 return, E06 rulesHiloReturn, E07 rulesHiloReturn) true"
+    },
+    {
+      "id": "HILO-31",
+      "status": "FLAG",
+      "origin": "operator",
+      "detail": "MEASURED, operator side: the server started every round on the start card the client sent (bet body startCard == settled startCard == cards[0]): 7777/7777; 52/52 start card ids used; 7630 of the 7771 rounds after the first of each dataset started on a card that was not the previous round's last card, and the server accepted them all — the start card is not fixed by the seed pair, and the carry-over (E01 \"derivation\") is the page's behaviour, not enforced by the server (E06: 10 bundle excerpts — the page draws, carries over and sends the card); the risk this opens, enumerated over E01's buttons and rule: for 11 of 13 next ranks there is a start card on which the likelier-side guess loses, while with a start card independent of the next card that guess wins 131/169 = 77.5 %; \"any start card is worth the same\" (the 26 first-guess cells' exact RTP spread 4.62e-9, HILO-19) holds only for a start card chosen independently of the stream — that independence rests on the page's code (E06: a crypto draw with a Math.random fallback, or the previous round's last card, itself a committed stream card), not on the commitment; the audited rounds are unaffected (the capture drew its start cards itself); the rules panel tells the player (E06 rulesHiloStart): \"A round starts on the card on top: the last card of the previous round, or a new one drawn by Skip before the bet. Every start card is worth the same.\"; the server accepted 7630 start cards that were not the previous round's last card (operator side, measured), so it does not hold a round to that published rule; a Skip draw is made in the page (E06 \"free skip (ip)\"), not by the server — OPERATOR-origin FLAG (open question 6, decided 16 Oct 2026): the start card is not committed by the seed pair; declared DL-5; whether the page shows the previous round's last card was not exercised (the capture sent start cards drawn with crypto.randomInt(0, 52), rig/hilo/capture-hb-hilo.mjs)"
+    },
+    {
+      "id": "HILO-32",
+      "status": "PASS",
+      "origin": null,
+      "detail": "published rule (E01 rules[7]): \"a round left without a decision for 24 hours is finished by the server: a round that can cash out is cashed out at its value; otherwise the card showing is guessed on its likelier side (hi on a tie of chances) and, if the guess is right, the round is cashed out\"; round 5aa3dc11… last decision 2026-10-12T13:45:30.139Z (the capture's leftOpen.at 2026-10-12T13:45:30.381Z) with 1 right guess, cash-out allowed true, value 0.0234; still active at 24.012, 24.582, 25.03 h, not at 25.212 h; the server settled it 2026-10-13T14:54:22.652985Z (25h08m53s after the last decision; 25h08m52s after leftOpen.at), outcome cashout, payout 0.0234 == its value when left == the replay over the cards recomputed from the revealed seed: true — the branch \"otherwise the card showing is guessed on its likelier side (hi on a tie of chances) and, if the guess is right, the round is cashed out\" was not exercised by the capture: declared unwitnessed (DL-6), as the rule allows: PASS with the branch declared; the close came 1h08m53s after the 24 hours, reported as observed (the profile sets no bound on it)"
+    }
+  ]
+}

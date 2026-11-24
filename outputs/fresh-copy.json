@@ -1,0 +1,14 @@
+{
+  "codeSha256": "f5e2e72b5328712aad11a7c39618d1843f934c976da2134c24b9f30785f578e3",
+  "node": "22.23.1",
+  "rngTestsExit": 0,
+  "exit": 2,
+  "verdict": "PROVABLY FAIR — Conditional Pass",
+  "standaloneExit": 2,
+  "standaloneVerdict": "PROVABLY FAIR — Conditional Pass",
+  "reproduced": true,
+  "simulateExit": 0,
+  "beyondTolerance": 0,
+  "pinnedUnchanged": true,
+  "changed": []
+}

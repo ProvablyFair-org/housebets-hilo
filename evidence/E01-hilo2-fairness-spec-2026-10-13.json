@@ -1,0 +1,280 @@
+{
+  "exhibit": "E01",
+  "what": "HouseBets House Games hilo: the server's published fairness spec (GET /housegames/hilo2/fairness)",
+  "source": {
+    "file": "data/housebets-hilo-phaseA-auto1-6500rounds.json",
+    "sha256": "63346862413fd87e3d5a5122b0a5950bf58f0af91c4e7e414158a6ec8cd8de1e",
+    "readBy": "the 13 Oct Phase A capture before its first bet",
+    "captureCreatedAt": "2026-10-13T15:00:36.306Z",
+    "field": "meta.staticReads['/hilo2/fairness']"
+  },
+  "sameAnswerOn": {
+    "file": "data/supplementary/housebets-hilo-full-77rounds-withopen.json",
+    "sha256": "192d39dc7ca28d75c62c98955e9a6a06e76489cc9622862c111279b4ca4e943a",
+    "readBy": "the 12 Oct capture",
+    "identical": true,
+    "field": "meta.staticReads['/hilo2/fairness']"
+  },
+  "answer": {
+    "version": "canonical",
+    "derivation": "block_i = HMAC_SHA256(key = serverSeed, message = clientSeed:nonce:i); the stream is block_0 ‖ block_1 ‖ … read 4 bytes at a time as big-endian u32s. A u32 of 4294967248 or more (2^32 − 2^32 mod 52) is skipped; otherwise the card is u32 mod 52. One nonce per round: the k-th card turned after the start card (by a guess or a skip) is stream card k − 1. The start card is not from the stream — it is the card you see when you bet (it carries over from your last round, or a free skip before the bet drew it), and any start card is worth the same.",
+    "cards": "Card id 0–51: suit = id / 13 (0 ♠, 1 ♥, 2 ♦, 3 ♣), rank = id mod 13 (0 = A lowest … 12 = K highest). The deck is infinite: every card is drawn independently, 1 in 13 for each rank.",
+    "buttons": [
+      {
+        "rank": "A",
+        "hi": "Higher",
+        "hiN": 12,
+        "lo": "Same",
+        "loN": 1,
+        "hiFirst": "1.07250000",
+        "loFirst": "12.87000000"
+      },
+      {
+        "rank": "2",
+        "hi": "Higher or same",
+        "hiN": 12,
+        "lo": "Lower or same",
+        "loN": 2,
+        "hiFirst": "1.07250000",
+        "loFirst": "6.43500000"
+      },
+      {
+        "rank": "3",
+        "hi": "Higher or same",
+        "hiN": 11,
+        "lo": "Lower or same",
+        "loN": 3,
+        "hiFirst": "1.17000000",
+        "loFirst": "4.29000000"
+      },
+      {
+        "rank": "4",
+        "hi": "Higher or same",
+        "hiN": 10,
+        "lo": "Lower or same",
+        "loN": 4,
+        "hiFirst": "1.28700000",
+        "loFirst": "3.21750000"
+      },
+      {
+        "rank": "5",
+        "hi": "Higher or same",
+        "hiN": 9,
+        "lo": "Lower or same",
+        "loN": 5,
+        "hiFirst": "1.43000000",
+        "loFirst": "2.57400000"
+      },
+      {
+        "rank": "6",
+        "hi": "Higher or same",
+        "hiN": 8,
+        "lo": "Lower or same",
+        "loN": 6,
+        "hiFirst": "1.60875000",
+        "loFirst": "2.14500000"
+      },
+      {
+        "rank": "7",
+        "hi": "Higher or same",
+        "hiN": 7,
+        "lo": "Lower or same",
+        "loN": 7,
+        "hiFirst": "1.83857142",
+        "loFirst": "1.83857142"
+      },
+      {
+        "rank": "8",
+        "hi": "Higher or same",
+        "hiN": 6,
+        "lo": "Lower or same",
+        "loN": 8,
+        "hiFirst": "2.14500000",
+        "loFirst": "1.60875000"
+      },
+      {
+        "rank": "9",
+        "hi": "Higher or same",
+        "hiN": 5,
+        "lo": "Lower or same",
+        "loN": 9,
+        "hiFirst": "2.57400000",
+        "loFirst": "1.43000000"
+      },
+      {
+        "rank": "10",
+        "hi": "Higher or same",
+        "hiN": 4,
+        "lo": "Lower or same",
+        "loN": 10,
+        "hiFirst": "3.21750000",
+        "loFirst": "1.28700000"
+      },
+      {
+        "rank": "J",
+        "hi": "Higher or same",
+        "hiN": 3,
+        "lo": "Lower or same",
+        "loN": 11,
+        "hiFirst": "4.29000000",
+        "loFirst": "1.17000000"
+      },
+      {
+        "rank": "Q",
+        "hi": "Higher or same",
+        "hiN": 2,
+        "lo": "Lower or same",
+        "loN": 12,
+        "hiFirst": "6.43500000",
+        "loFirst": "1.07250000"
+      },
+      {
+        "rank": "K",
+        "hi": "Same",
+        "hiN": 1,
+        "lo": "Lower",
+        "loN": 12,
+        "hiFirst": "12.87000000",
+        "loFirst": "1.07250000"
+      }
+    ],
+    "rules": [
+      "on each card you guess the top button (hi) or the bottom one (lo), or skip the card; a guess or a skip turns the next card",
+      "2 … Q: Higher or same (13 − r ranks) | Lower or same (r + 1 ranks); A: Higher (12) | Same (1); K: Same (1) | Lower (12); a tie wins an \"or same\" guess",
+      "a wrong guess ends the round and pays nothing; a skip never changes the multiplier",
+      "a round shows at most 52 cards (the start card and 51 more); a skip always leaves a card to guess on",
+      "a paid round can cash out after its first right guess; a free ($0) round once a card has been turned",
+      "a round never pays more than its max win above the stake: a right guess that reaches it cashes the round out at that amount, and so does a right guess on the 52nd card",
+      "a payout is rounded down to the wallet's smallest unit (1e-8) once",
+      "a round left without a decision for 24 hours is finished by the server: a round that can cash out is cashed out at its value; otherwise the card showing is guessed on its likelier side (hi on a tie of chances) and, if the guess is right, the round is cashed out"
+    ],
+    "multiplier": "after right guesses on cards where n_1 … n_k of the 13 ranks win, the multiplier is 99/100 × Π 13 / n_i, cut to 8 decimals; a stake is paid floor(stake × multiplier)",
+    "return": "99% at any cash-out depth, from any start card, on either side: the 1% edge is charged once, on the first right guess, and every later guess is priced fair (a guess on n ranks wins with chance n/13 and multiplies by 13/n)",
+    "examples": [
+      {
+        "serverSeed": "housebets-demo-server-seed-0001",
+        "clientSeed": "demo-client",
+        "nonce": 1,
+        "block0": "b6d4152534824db861a00c024857364f8aadd13f1cb8886c33d590e4f6afd484",
+        "cards": [
+          17,
+          32,
+          50,
+          27,
+          27,
+          40,
+          4,
+          16
+        ]
+      },
+      {
+        "serverSeed": "housebets-demo-server-seed-0001",
+        "clientSeed": "demo-client",
+        "nonce": 2,
+        "block0": "d1702cc1dcc9afb3f34f7688eceb8a696d5591f4b0d0067f68b3813c137889f5",
+        "cards": [
+          29,
+          3,
+          40,
+          13,
+          28,
+          19,
+          16,
+          37
+        ]
+      },
+      {
+        "serverSeed": "housebets-demo-server-seed-0001",
+        "clientSeed": "demo-client",
+        "nonce": 3,
+        "block0": "edf6c897e59ef77db0f9f385f8124ebf95a9dd32fd0a670a742e26c85d6b3663",
+        "cards": [
+          27,
+          9,
+          45,
+          51,
+          30,
+          50,
+          16,
+          11
+        ]
+      },
+      {
+        "serverSeed": "5a1f7d2c9e4b8a3f6d0c2b5e8f1a4d7c0b3e6f9a2d5c8b1e4f7a0d3c6b9e2f5a",
+        "clientSeed": "housebets",
+        "nonce": 1,
+        "block0": "a00c215b420dc9363ba9bdfa6f03cb9f88278f8fab2a291091874d14eda374da",
+        "cards": [
+          51,
+          18,
+          34,
+          39,
+          19,
+          32,
+          28,
+          38
+        ]
+      }
+    ],
+    "payouts": [
+      {
+        "ns": [
+          12
+        ],
+        "multiplier": "1.07250000",
+        "payout": 1.0725
+      },
+      {
+        "ns": [
+          1
+        ],
+        "multiplier": "12.87000000",
+        "payout": 12.87
+      },
+      {
+        "ns": [
+          7
+        ],
+        "multiplier": "1.83857142",
+        "payout": 1.83857142
+      },
+      {
+        "ns": [
+          7,
+          7
+        ],
+        "multiplier": "3.41448979",
+        "payout": 3.41448979
+      },
+      {
+        "ns": [
+          7,
+          7,
+          7
+        ],
+        "multiplier": "6.34119533",
+        "payout": 6.34119533
+      },
+      {
+        "ns": [
+          12,
+          12,
+          12,
+          12,
+          12
+        ],
+        "multiplier": "1.47722186",
+        "payout": 1.47722186
+      },
+      {
+        "ns": [
+          1,
+          1
+        ],
+        "multiplier": "167.31000000",
+        "payout": 167.31
+      }
+    ],
+    "summary": "block_i = HMAC_SHA256(key = serverSeed, message = clientSeed:nonce:i); the stream is block_0 ‖ block_1 ‖ … read 4 bytes at a time as big-endian u32s. A u32 of 4294967248 or more (2^32 − 2^32 mod 52) is skipped; otherwise the card is u32 mod 52. One nonce per round: the k-th card turned after the start card (by a guess or a skip) is stream card k − 1. The start card is not from the stream — it is the card you see when you bet (it carries over from your last round, or a free skip before the bet drew it), and any start card is worth the same. Card id 0–51: suit = id / 13 (0 ♠, 1 ♥, 2 ♦, 3 ♣), rank = id mod 13 (0 = A lowest … 12 = K highest). The deck is infinite: every card is drawn independently, 1 in 13 for each rank. The payout: after right guesses on cards where n_1 … n_k of the 13 ranks win, the multiplier is 99/100 × Π 13 / n_i, cut to 8 decimals; a stake is paid floor(stake × multiplier), so the game returns 99% at any cash-out depth, from any start card, on either side: the 1% edge is charged once, on the first right guess, and every later guess is priced fair (a guess on n ranks wins with chance n/13 and multiplies by 13/n). The server seed is committed up front by its SHA-256 hash and revealed when you rotate the pair, so every card of a round is fixed before the bet and can be checked afterwards."
+  }
+}

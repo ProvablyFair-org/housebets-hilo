@@ -1,0 +1,34 @@
+{
+  "exhibit": "E02",
+  "what": "HouseBets hilo limits (GET /housegames/limits/hilo2)",
+  "source": {
+    "file": "data/housebets-hilo-phaseA-auto1-6500rounds.json",
+    "sha256": "63346862413fd87e3d5a5122b0a5950bf58f0af91c4e7e414158a6ec8cd8de1e",
+    "readBy": "the 13 Oct Phase A capture before its first bet",
+    "captureCreatedAt": "2026-10-13T15:00:36.306Z",
+    "field": "meta.staticReads['/limits/hilo2']"
+  },
+  "sameAnswerOn": {
+    "file": "data/supplementary/housebets-hilo-full-77rounds-withopen.json",
+    "sha256": "192d39dc7ca28d75c62c98955e9a6a06e76489cc9622862c111279b4ca4e943a",
+    "readBy": "the 12 Oct capture",
+    "identical": true,
+    "field": "meta.staticReads['/limits/hilo2']"
+  },
+  "answer": {
+    "game": "hilo2",
+    "maxBet": 20000,
+    "maxWin": 1000000,
+    "minBet": 0.01,
+    "source": "server-config",
+    "unit": "USD",
+    "wallet": {
+      "currency": 1,
+      "decimals": 8,
+      "maxBet": 20006.20192259,
+      "maxWin": 1000310.0961298,
+      "minBet": 0.01000311,
+      "symbol": "USDT"
+    }
+  }
+}
